@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>30-15 Intermittent Fitness Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+            text-align: center;
+            padding: 20px;
+            margin: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 100%;
+        }
+        input, button, select {
+            margin: 20px 0;
+            padding: 10px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        table {
+            margin-top: 20px;
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 10px;
+            text-align: center;
+        }
+
+    </style>
+</head>
+<body>
+    <!-- 30-15 IFT 強度計算セクション -->
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>30-15 IFTの強度計算</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+            text-align: center;
+            padding: 20px;
+            margin: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        input, button {
+            margin: 20px 0;
+            padding: 10px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        table {
+            margin-top: 20px;
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        /* レスポンシブ対応 */
+        @media (max-width: 768px) {
+            #predictedVO2max {
+                font-size: 1.5em;  /* モバイルデバイス用にフォントサイズを小さく */
+                padding: 15px;
+            }
+
+            .container {
+                padding: 15px;
+            }
+
+            input, button, select {
+                padding: 15px;
+            }
+
+            table th, table td {
+                font-size: 14px;  /* 表のフォントサイズを小さく */
+            }
+        }
+
+        @media (max-width: 480px) {
+            #predictedVO2max {
+                font-size: 1.2em;  /* より小さな画面に対応 */
+                padding: 10px;
+            }
+
+            input, button, select {
+                padding: 12px;
+            }
+
+            table th, table td {
+                font-size: 12px;  /* 表のフォントサイズをさらに小さく */
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>30-15 IFTの強度計算</h1>
+
+        <label for="iftResult">30-15 IFTの結果 (km/h):</label>
+        <input type="number" id="iftResult" placeholder="結果を入力" required>
+
+        <button onclick="calculateIFTIntensity()">計算する</button>
+
+        <table id="iftTable" style="display:none;">
+            <thead>
+                <tr>
+                    <th>vVO2max (%)</th>
+                    <th>速度 (km/h)</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+
+    <script>
+        // 30-15 IFTの強度計算
+        function calculateIFTIntensity() {
+            const result = parseFloat(document.getElementById('iftResult').value);
+
+            if (isNaN(result)) {
+                alert("30-15 IFTの結果を正しく入力してください！");
+                return;
+            }
+
+            const vVO2maxValues = [140, 135, 130, 125, 120, 115, 110, 105, 100, 95, 90, 85, 80, 70, 60, 50];
+            const percentages = [120, 115, 111, 107, 102, 98, 94, 89, 85, 81, 76, 72, 68, 64, 60, 56];
+
+            const tableBody = document.getElementById('iftTable').getElementsByTagName('tbody')[0];
+            tableBody.innerHTML = '';
+
+            for (let i = 0; i < vVO2maxValues.length; i++) {
+                const row = tableBody.insertRow();
+                row.insertCell(0).textContent = vVO2maxValues[i];
+                row.insertCell(1).textContent = ((percentages[i] * result) / 100).toFixed(2);
+            }
+
+            document.getElementById('iftTable').style.display = 'table';
+        }
+    </script>
+</body>
+</html>
+
+
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>インターバルメニューを作成する</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h2 {
+            color: #2C3E50;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            padding: 8px 12px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .interval-section {
+            margin-top: 20px;
+        }
+        .link-list {
+            list-style-type: none;
+            padding: 0;
+        }
+        .link-list li {
+            margin: 10px 0;
+        }
+        .link-list button {
+            font-size: 18px;
+            padding: 10px 20px;
+            border: none;
+            background-color: #3498DB;
+            color: #fff;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            border-radius: 4px;
+        }
+        .link-list button:hover {
+            background-color: #1ABC9C;
+        }
+        .content {
+            display: none;
+            margin-top: 20px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <h1>インターバルメニューを作成する</h1>
+    <ul class="link-list">
+        <li><button onclick="toggleContent('intervalPlan')">メニュー例</button></li>
+        <li><button onclick="toggleContent('teamInterval')">チームでインターバル</button></li>
+    </ul>
+
+    <div id="intervalPlan" class="content">
+        <h3>Long Interval</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>main (%vVO2max)</th>
+                    <th>main (time)</th>
+                    <th>rest (%vVO2max)</th>
+                    <th>rest (time)</th>
+                    <th>set</th>
+                    <th>rest 2</th>
+                    <th>set 2</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>92%</td>
+                    <td>3min</td>
+                    <td>0%</td>
+                    <td>90s</td>
+                    <td>5</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>100%</td>
+                    <td>2min</td>
+                    <td>0%</td>
+                    <td>60s</td>
+                    <td>8</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>90%</td>
+                    <td>4min</td>
+                    <td>50%</td>
+                    <td>2min</td>
+                    <td>4</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>100%</td>
+                    <td>2min</td>
+                    <td>50%</td>
+                    <td>2min</td>
+                    <td>2</td>
+                    <td>3min</td>
+                    <td>3</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>Short Interval</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>main (%vVO2max)</th>
+                    <th>main (time)</th>
+                    <th>rest (%vVO2max)</th>
+                    <th>rest (time)</th>
+                    <th>set</th>
+                    <th>rest 2</th>
+                    <th>set 2</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>120%</td>
+                    <td>15s</td>
+                    <td>0%</td>
+                    <td>15s</td>
+                    <td>8</td>
+                    <td>5min</td>
+                    <td>2</td>
+                </tr>
+                <tr>
+                    <td>120%</td>
+                    <td>15s</td>
+                    <td>50%</td>
+                    <td>15s</td>
+                    <td>6</td>
+                    <td>5min</td>
+                    <td>2</td>
+                </tr>
+                <tr>
+                    <td>105%</td>
+                    <td>30s</td>
+                    <td>50%</td>
+                    <td>30s</td>
+                    <td>2</td>
+                    <td>2min</td>
+                    <td>3</td>
+                </tr>
+                <tr>
+                    <td>100%</td>
+                    <td>30s</td>
+                    <td>50%</td>
+                    <td>15s</td>
+                    <td>4</td>
+                    <td>4min</td>
+                    <td>2</td>
+                </tr>
+                <tr>
+                    <td>95-100%</td>
+                    <td>60s</td>
+                    <td>50%</td>
+                    <td>30s</td>
+                    <td>6-8</td>
+                    <td>　</td>
+                    <td>　</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div id="teamInterval" class="content">
+        <h1>フィールド用　距離換算</h1>
+        <label for="speed">運動強度 (km/h):</label>
+        <input type="number" id="speed" placeholder="運動強度 (km/h)" required>
+
+        <label for="time">運動時間 (秒):</label>
+        <input type="number" id="time" placeholder="運動時間 (秒)" required>
+
+        <button onclick="generateTable()">換算結果</button>
+
+        <table id="distanceTable" style="display:none;">
+            <thead>
+                <tr>
+                    <th>方向転換回数</th>
+                    <th>総距離 (m)</th>
+                    <th>直線距離 (m)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- 結果がここに表示されます -->
+            </tbody>
+        </table>
+
+        <script>
+            function generateTable() {
+                const speed = parseFloat(document.getElementById('speed').value);
+                const time = parseFloat(document.getElementById('time').value);
+
+                if (isNaN(speed) || isNaN(time) || time <= 0 || speed <= 0) {
+                    alert("正しい運動強度と運動時間を入力してください！");
+                    return;
+                }
+
+                const tableBody = document.getElementById('distanceTable').getElementsByTagName('tbody')[0];
+                tableBody.innerHTML = '';
+
+                for (let turns = 0; turns <= 5; turns++) {
+                    const adjustedTime = time - 0.7 * turns;
+                    if (adjustedTime <= 0) break;
+
+                    const totalDistance = ((speed * 1000) / 3600) * adjustedTime;
+                    const straightDistance = totalDistance / (turns + 1);
+
+                    const row = tableBody.insertRow();
+                    row.insertCell(0).textContent = turns;
+                    row.insertCell(1).textContent = totalDistance.toFixed(2);
+                    row.insertCell(2).textContent = straightDistance.toFixed(2);
+                }
+
+                document.getElementById('distanceTable').style.display = 'table';
+            }
+        </script>
+    </div>
+
+    <script>
+        function toggleContent(contentId) {
+            const content = document.getElementById(contentId);
+            if (content.style.display === "none" || content.style.display === "") {
+                content.style.display = "block";
+            } else {
+                content.style.display = "none";
+            }
+        }
+    </script>
+</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>最大酸素摂取量を予測する</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h2 {
+            color: #2C3E50;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            padding: 8px 12px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .interval-section {
+            margin-top: 20px;
+        }
+        .link-list {
+            list-style-type: none;
+            padding: 0;
+        }
+        .link-list li {
+            margin: 10px 0;
+        }
+        .link-list button {
+            font-size: 18px;
+            padding: 10px 20px;
+            border: none;
+            background-color: #3498DB;
+            color: #fff;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            border-radius: 4px;
+        }
+        .link-list button:hover {
+            background-color: #1ABC9C;
+        }
+        .content {
+            display: none;
+            margin-top: 20px;
+            text-align: left;
+        }
+        .container {
+            margin-top: 20px;
+        }
+        label, input, select, button {
+            display: block;
+            margin-bottom: 15px;
+        }
+        /* 予測VO2maxを目立たせるスタイル */
+        #predictedVO2max {
+            font-size: 2em;
+            font-weight: bold;
+            color: #4CAF50;
+            background-color: #f0f9e8;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            width: 45%;
+            display: inline-block;
+            box-sizing: border-box;
+        }
+
+    </style>
+</head>
+<body>
+    <h1>30-15IFTから最大酸素摂取量を予測する</h1>
+    <ul class="link-list">
+        <li><button onclick="toggleContent('30-15ift')">VO2maxを予測する</button></li>
+    </ul>
+
+    <div id="30-15ift" class="content">
+        <div class="container">
+            <label for="age">年齢:</label>
+            <input type="number" id="age" placeholder="年齢を入力">
+
+            <label for="weight">体重 (kg):</label>
+            <input type="number" id="weight" placeholder="体重を入力">
+
+            <label for="gender">性別:</label>
+            <select id="gender">
+                <option value="1">男性</option>
+                <option value="2">女性</option>
+            </select>
+
+            <label for="vo2Result">30-15 IFTの結果 (km/h):</label>
+            <input type="number" id="vo2Result" placeholder="結果を入力">
+
+            <button onclick="calculateVO2max()">計算する</button>
+
+            <h3>予測VO2max（ml/kg/分）:</h3>
+            <p id="predictedVO2max"></p>
+        </div>
+    </div>
+
+    <script>
+        // 最大酸素摂取量の予測
+        function calculateVO2max() {
+            const age = parseFloat(document.getElementById('age').value);
+            const weight = parseFloat(document.getElementById('weight').value);
+            const gender = parseInt(document.getElementById('gender').value);
+            const result = parseFloat(document.getElementById('vo2Result').value);
+
+            if (isNaN(age) || isNaN(weight) || isNaN(result)) {
+                alert("すべての項目を正しく入力してください！");
+                return;
+            }
+
+            const vo2max = 28.3 - (2.15 * gender) - (0.741 * age) - (0.0357 * weight) +
+                (0.0586 * age * result) + (1.03 * result);
+
+            document.getElementById('predictedVO2max').textContent = `${vo2max.toFixed(2)} ml/kg/分`;
+        }
+
+        // コンテンツの表示切り替え
+        function toggleContent(contentId) {
+            const content = document.getElementById(contentId);
+            if (content.style.display === "none" || content.style.display === "") {
+                content.style.display = "block";
+            } else {
+                content.style.display = "none";
+            }
+        }
+    </script>
+</body>
+</html>
+
+
